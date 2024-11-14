@@ -55,6 +55,25 @@ button:hover {
     background-color: #4cae4c;
 }
 
+/* Spinner Styling */
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #5cb85c;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.8s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Result Section Styling */
 .result {
     max-width: 700px;
@@ -83,7 +102,6 @@ pre {
     margin: 10px 0;
 }
 
-/* Colors for added, deleted, and unchanged lines */
 .added {
     color: #2e7d32; /* Dark green */
     font-weight: bold;
@@ -142,4 +160,26 @@ pre {
 
 .legend-item .unchanged-box {
     background-color: #555;
+}
+
+/* Flash Message Styling */
+.flash-message {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffefc5;
+    border-left: 6px solid #f0ad4e;
+    border-radius: 4px;
+    color: #8a6d3b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.flash-message ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flash-message li {
+    margin: 5px 0;
 }

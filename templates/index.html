@@ -5,10 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Comparison</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function showSpinner() {
+            document.getElementById("spinner").style.display = "block";
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const flashMessage = document.querySelector('.flash-message');
+            if (flashMessage) {
+                setTimeout(() => {
+                    flashMessage.style.display = 'none';
+                }, 5000); // 5 seconds
+            }
+        });
+    </script>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-message">
+              <ul>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
     <h1>Document Comparison Tool</h1>
-    <form action="{{ url_for('compare') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ url_for('compare') }}" method="POST" enctype="multipart/form-data" onsubmit="showSpinner()">
         <label for="file1">Select the first document (TXT, PDF or DOCX):</label>
         <input type="file" name="file1" accept=".txt,.pdf,.docx" required>
 
@@ -17,6 +41,9 @@
 
         <button type="submit">Compare Documents</button>
     </form>
+
+    <!-- Spinner -->
+    <div id="spinner" class="spinner" style="display: none;"></div>
 
     {% if diff %}
     <div class="result">
