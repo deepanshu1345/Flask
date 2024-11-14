@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Document Comparison Tool</h1>
+    <form action="{{ url_for('compare') }}" method="POST" enctype="multipart/form-data">
+        <label for="file1">Select the first document (TXT,PDF or DOCX):</label>
+        <input type="file" name="file1" accept=".txt,.pdf,.docx" required>
+
+        <label for="file2">Select the second document (TXT,PDF or DOCX):</label>
+        <input type="file" name="file2" accept=".txt, .pdf,.docx" required>
+
+        <button type="submit">Compare Documents</button>
+    </form>
+
+    {% if diff %}
+    <div class="result">
+        <h2>Comparison Result:</h2>
+        <pre>
+            {% for line in diff %}
+                {{ line }}
+            {% endfor %}
+        </pre>
+    </div>
+    {% endif %}
+</body>
+</html>
