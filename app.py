@@ -91,8 +91,11 @@ def compare():
     diff = list(d.compare(file1_text.splitlines(), file2_text.splitlines()))
 
     # Clean up the saved files
-    os.remove(file1_path)
-    os.remove(file2_path)
+    try:
+        os.remove(file1_path)
+        os.remove(file2_path)
+    except Exception as e:
+        print(f"Error deleting files: {e}")
 
     return render_template('index.html', diff=diff)
 
