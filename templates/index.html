@@ -9,11 +9,11 @@
 <body>
     <h1>Document Comparison Tool</h1>
     <form action="{{ url_for('compare') }}" method="POST" enctype="multipart/form-data">
-        <label for="file1">Select the first document (TXT,PDF or DOCX):</label>
-        <input type="file" name="file1" accept=".txt,.pdf,.docx" required>
+        <label for="file1">Select the first document (PDF or DOCX):</label>
+        <input type="file" name="file1" accept=".pdf,.docx" required>
 
-        <label for="file2">Select the second document (TXT,PDF or DOCX):</label>
-        <input type="file" name="file2" accept=".txt, .pdf,.docx" required>
+        <label for="file2">Select the second document (PDF or DOCX):</label>
+        <input type="file" name="file2" accept=".pdf,.docx" required>
 
         <button type="submit">Compare Documents</button>
     </form>
@@ -23,10 +23,30 @@
         <h2>Comparison Result:</h2>
         <pre>
             {% for line in diff %}
-                {{ line }}
+                {% if line.startswith('+') %}
+                    <span class="added">{{ line }}</span>
+                {% elif line.startswith('-') %}
+                    <span class="deleted">{{ line }}</span>
+                {% else %}
+                    <span class="unchanged">{{ line }}</span>
+                {% endif %}
             {% endfor %}
         </pre>
     </div>
     {% endif %}
+
+    <!-- Legend Section -->
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item">
+            <span class="added-box"></span> Added: Lines that appear only in the second document
+        </div>
+        <div class="legend-item">
+            <span class="deleted-box"></span> Deleted: Lines that appear only in the first document
+        </div>
+        <div class="legend-item">
+            <span class="unchanged-box"></span> Unchanged: Lines that appear in both documents
+        </div>
+    </div>
 </body>
 </html>

@@ -62,6 +62,7 @@ def compare():
     # Compare using difflib
     d = difflib.Differ()
     diff = list(d.compare(file1_text.splitlines(), file2_text.splitlines()))
+    print(diff)
 
     # Clean up the saved files
     os.remove(file1_path)
@@ -70,4 +71,4 @@ def compare():
     return render_template('index.html', diff=diff)
 
 if __name__ == '__main__':
-    app.run(debug=True,port=3434)
+    app.run(debug=True, port=2323)
